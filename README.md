@@ -1,6 +1,19 @@
-# MusicCollectionOrganizer
-Website where you can keep up with your music collection. Kinda like a database with easy to use graphical interface.
+# Simple web forum called "ToiletPaper"
+Like any other forum board but very simple.
+You cannot actually respond to posts only write them.
 
-Frontend = created using vue.js. categorize music (name, genre, date etc). Includes authentication. Easy way to add to collection. Maybe statistics page. Must be easy to browse.
+This project is intended for me to test out different web development stacks and learn more about them. (for example: MEVN, MERN, MEAN)
 
-Backend = Runs with my mongodb. ability to find album covers for example and maybe short wiki. Must be relational database which has to be created before any data is added.
+Login/Signup required.
+
+Post via popup window.
+
+Ability to view your own posts.
+
+Ability to delete your own posts.
+
+Posts will be signed with your username.
+
+Users wont be able to edit their posts.
+
+Ability to edit your profile (Profile picture will be added during signup)
