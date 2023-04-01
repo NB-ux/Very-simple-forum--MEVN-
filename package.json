@@ -1,9 +1,23 @@
 {
+  "name": "very-simple-forum--mevn-",
+  "version": "1.0.0",
+  "description": "Toiletpaper forum for garbage",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NB-ux/Very-simple-forum--MEVN-.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NB-ux/Very-simple-forum--MEVN-/issues"
+  },
+  "homepage": "https://github.com/NB-ux/Very-simple-forum--MEVN-#readme",
   "dependencies": {
-    "bootstrap": "^5.2.1",
-    "bootstrap-vue": "^2.22.0",
-    "mongodb": "^4.9.1",
-    "mongoose": "^6.5.4",
-    "vue": "^2.7.10"
+    "express": "^4.18.2",
+    "mongoose": "^7.0.3"
   }
 }
