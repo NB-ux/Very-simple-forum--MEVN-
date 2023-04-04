@@ -1,8 +1,10 @@
 <template>
     <div class="paper">
-      <img alt="Vue logo" src="../assets/mevn.jpg" width="350" />
-      <Piece />
-      <a>test</a>
+    <div id="rightpane">&nbsp;</div>
+      <div id="midpane">
+        <Piece />
+      </div>
+      <div id="leftpane">&nbsp;</div>
     </div>
 </template>
   
@@ -17,4 +19,19 @@
     }
   };
   </script>
+
+<style>
+#midpane {
+  width: 50%;
+  float: right;
+}
+#leftpane{
+  width: 25%;
+  float: left;
+}
+#rightpane{
+  width: 25%;
+  float: right;
+}
+</style>
   
