@@ -35,3 +35,5 @@ postRoute.route('/delete-post/:id').delete((req, res, next) => {
         }
     })
 })
+
+module.exports = postRoute;
