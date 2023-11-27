@@ -2,7 +2,7 @@
 const cors = require('cors');
 const express = require('express');
 const mongoose = require('mongoose');
-const postapi = require('./routes/api')
+const postapi = require('./routes/api/PostsApi')
 
 // parse env variables
 require('dotenv').config();
