@@ -2,6 +2,7 @@
 const cors = require('cors');
 const express = require('express');
 const mongoose = require('mongoose');
+const postapi = require('./routes/api')
 
 // parse env variables
 require('dotenv').config();
@@ -29,9 +30,9 @@ app.set('view engine', 'html');
 app.use(express.static(__dirname + '/views/'));
 
 // Defining route middleware
-app.use('/api', require('./routes/api'));
-app.use('/api/posters', require('./routes/post.route'))
-
+//app.use('/api', require('./routes/api'));
+//app.use('/api/posters', require('./routes/post.route'))
+app.use('/api', postapi)
 // Listening to port
 app.listen(port);
 console.log(`Listening On http://localhost:${port}/api`);
