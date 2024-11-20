@@ -3,6 +3,12 @@
         <div class="popup-content">
             <button class="close-btn" @click="closePopup">X</button>
             <slot></slot>
+            <div>
+                <h3>Create new post</h3>
+                <input type="text" id="title" placeholder="Title here">
+                <textarea id="content" placeholder="Enter post content here" rows="6"></textarea>
+            </div>
+            <button class="btn" onclick="">Submit</button>
         </div>
     </div>
 </template>
