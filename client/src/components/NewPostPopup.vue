@@ -1,19 +1,24 @@
 <template>
     <div v-if="visible" class="popup-overlay">
+
+    <form @submit.prevent="submitPost">
         <div class="popup-content">
             <button class="close-btn" @click="closePopup">X</button>
             <slot></slot>
             <div>
                 <h3>Create new post</h3>
-                <input type="text" id="title" placeholder="Title here">
-                <textarea id="content" placeholder="Enter post content here" rows="6"></textarea>
+                <input v-model="title" type="text" id="title" placeholder="Title here">
+                <textarea v-model="content" id="content" placeholder="Enter post content here" rows="6"></textarea>
             </div>
-            <button class="btn" onclick="">Submit</button>
+            <button type="submit">Submit</button>
         </div>
+    </form>
     </div>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
     name: "NewPostPopup",
     props: {
@@ -22,9 +27,35 @@ export default {
             required: true,
         },
     },
+    data(){
+        return{
+            title: "",
+            content: "",
+        };
+    },
     methods: {
+
         closePopup() {
             this.$emit('close');
+        },
+        
+        async submitPost(){
+            const postData={
+                title: this.title,
+                content: this.content,
+            };
+
+            try {
+                const res = await axios.post("http://localhost:3001/api/", postData);
+                if (res.status===200){
+                    alert("Post created successfully!");
+                }
+                this.title = "";
+                this.content = "";
+            } catch (error) {
+                alert("Error creating post...")
+                console.error(error)
+            }
         },
     },
 };
