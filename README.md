@@ -6,9 +6,9 @@ This project is intended for me to test out different web development stacks and
 
 Login/Signup required.
 
-Post via popup window.
+Post via popup window. - done.
 
-Ability to view your own posts.
+Ability to view your own posts. 
 
 Ability to delete your own posts.
 

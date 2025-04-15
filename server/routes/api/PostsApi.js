@@ -1,11 +1,15 @@
 const {Router} = require ('express')
 const Post = require('../../models/Post')
 
-
 const router = Router()
 
-router.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'views', 'index.html'));
+router.get('/', async (req, res) => {
+  try {
+    const posts = await Post.find(); // Fetch all posts from the database
+    res.status(200).json(posts); // Send the posts as a JSON response
+  } catch (error) {
+    res.status(500).json({ message: error.message }); 
+  }
 });
 
 router.post('/', async (req, res) => {

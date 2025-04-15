@@ -2,7 +2,7 @@
     <div class="paper">
     <div id="rightpane">&nbsp;</div>
       <div id="midpane">
-        <Piece />
+        <Piece v-for="post in posts" :key="post._id" :post="post" />
       </div>
       <div id="leftpane">&nbsp;</div>
         <!-- Post Actions -->
@@ -15,6 +15,7 @@
   
   <script>
   // @ is an alias to /src
+  import axios from "axios";
   import Piece from "@/components/Piece.vue";
   import Popup from "@/components/NewPostPopup.vue";
 
@@ -26,7 +27,8 @@
     },
     data() {
     return {
-      isPopupVisible: false
+      isPopupVisible: false,
+      posts: [],
       };
     },
     methods: {
@@ -35,8 +37,20 @@
     },
     closePopup() {
       this.isPopupVisible = false;
-    }
-  }
+    },
+    async fetchPosts() {
+      try {
+        const response = await axios.get('http://localhost:3001'); // Adjust the endpoint if needed
+        this.posts = response.data; // Store the fetched posts
+        console.log("Fetched posts:", this.posts); // Log the fetched posts
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+      }
+    },
+  },
+  mounted() {
+    this.fetchPosts(); // Fetch posts when the component is mounted
+  },
   };
   </script>
 

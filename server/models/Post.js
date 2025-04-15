@@ -1,5 +1,5 @@
-const mongos = require('mongoose');
-const Schema = mongos.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 let postSchema = new Schema({
     title:{
@@ -12,4 +12,4 @@ let postSchema = new Schema({
     }
 })
 
-module.exports = mongos.model('Post', postSchema)
+module.exports = mongoose.model('Post', postSchema);
