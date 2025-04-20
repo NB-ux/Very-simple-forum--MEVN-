@@ -7,7 +7,7 @@
       <div id="leftpane">&nbsp;</div>
         <!-- Post Actions -->
       <div class="post-actions">
-        <button class="action-btn like-btn" @click="togglePopup">Create new post</button>
+        <button class="create-post-btn" @click="togglePopup">Create new post</button>
         <Popup :visible="isPopupVisible" @close="closePopup" />
       </div>
     </div>
@@ -58,6 +58,29 @@
   </script>
 
 <style>
+
+/* Styling for the Create New Post button */
+.create-post-btn {
+  display: inline-block;
+  background: #fdfdfd; /* Light paper-like background */
+  border: 2px dashed #bbb; /* Dashed border to match the toilet paper theme */
+  border-radius: 10px; /* Slightly rounded corners */
+  padding: 10px 20px; /* Add padding for spacing */
+  font-family: "Arial", sans-serif; /* Clean font for readability */
+  font-size: 16px; /* Adjust font size */
+  color: #555; /* Subtle text color */
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  transition: background 0.3s, transform 0.2s; /* Smooth hover effects */
+  margin: 20px auto; /* Center the button */
+  display: block; /* Center-align the button */
+}
+
+.create-post-btn:hover {
+  background: #f0f0f0; /* Slightly darker background on hover */
+  transform: scale(1.05); /* Slight zoom effect */
+}
+
 #midpane {
   width: 50%;
   float: right;
