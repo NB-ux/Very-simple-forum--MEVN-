@@ -2,7 +2,7 @@
     <div class="paper">
     <div id="rightpane">&nbsp;</div>
       <div id="midpane">
-        <Piece v-for="post in posts" :key="post._id" :post="post" />
+        <Piece v-for="post in posts" :key="post._id" :post="post" @delete="deletePost" />
       </div>
       <div id="leftpane">&nbsp;</div>
         <!-- Post Actions -->
@@ -46,6 +46,9 @@
       } catch (error) {
         console.error("Error fetching posts:", error);
       }
+    },
+    deletePost(postId) {
+      this.posts = this.posts.filter((post) => post._id !== postId);
     },
   },
   mounted() {

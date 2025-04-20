@@ -7,6 +7,9 @@
 </template>
 
 <script>
+
+import axios from "axios";
+
 export default {
   name: "Piece",
   props
@@ -17,9 +20,15 @@ export default {
     },
   },
   methods: {
-    deletePiece() {
-      this.$emit("delete", this.post._id); // Emit a delete event with the post ID
-    },
+    async deletePiece() {
+    console.log("Post object:", this.post); // Log the post object
+    try {
+      await axios.delete(`http://localhost:3001/api/${this.post._id}`);
+      this.$emit("delete", this.post._id);
+    } catch (error) {
+      console.error("Error deleting post:", error);
+    }
+  },
   },
 };
 </script>
