@@ -1,13 +1,20 @@
 <template>
     <div id="paperpiece">
-    <h1>Title of post</h1>
-    <a>Text of post</a>
+      <h1>{{ post.title }}</h1>
+      <p>{{ post.content }}</p>
     </div>
 </template>
 
 <script>
 export default {
-  name: "Piece"
+  name: "Piece",
+  props
+  : {
+    post: {
+      type: Object,
+      required: true,
+    },
+  },
 };
 </script>
 <style>

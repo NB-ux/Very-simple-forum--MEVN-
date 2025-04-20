@@ -40,7 +40,7 @@
     },
     async fetchPosts() {
       try {
-        const response = await axios.get('http://localhost:3001'); // Adjust the endpoint if needed
+        const response = await axios.get('http://localhost:3001/api'); // Adjust the endpoint if needed
         this.posts = response.data; // Store the fetched posts
         console.log("Fetched posts:", this.posts); // Log the fetched posts
       } catch (error) {
