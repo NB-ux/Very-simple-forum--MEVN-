@@ -1,5 +1,5 @@
 <template>
-    <div id="paperpiece">
+    <div class="paperpiece">
       <button class="delete-btn" @click="deletePiece">✂</button>
       <h1>{{ post.title }}</h1>
       <p>{{ post.content }}</p>
@@ -33,7 +33,7 @@ export default {
 };
 </script>
 <style>
-#paperpiece {
+.paperpiece {
   border-top: 2px dashed #bbb; /* Dashed border for perforation at the top */
   border-bottom: 2px dashed #bbb; /* Dashed border for perforation at the bottom */
   background: #fdfdfd; /* Light paper-like background */
@@ -71,12 +71,12 @@ export default {
 }
 
 /* Remove spacing between pieces */
-#paperpiece + #paperpiece {
+.paperpiece + .paperpiece {
   margin-top: -2px; /* Overlap the dashed border to connect pieces */
 }
 
 /* Add subtle texture to the paper */
-#paperpiece::after {
+.paperpiece::after {
   content: "";
   position: absolute;
   top: 0;
