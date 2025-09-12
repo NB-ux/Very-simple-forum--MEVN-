@@ -22,12 +22,25 @@ export default {
   },
   methods: {
     async login() {
-      // TODO: Replace with real API call
-      if (this.username === "admin" && this.password === "admin") {
+      try {
+      const res = await fetch('http://localhost:9000/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: this.username,
+          password: this.password
+        })
+      });
+      const data = await res.json();
+      if (res.ok && data.success && data.token) {
+        localStorage.setItem('token', data.token); // Save token
         this.$router.push("/paper");
       } else {
-        this.error = "Invalid username or password";
+        this.error = data.message || "Invalid username or password";
       }
+    } catch (err) {
+      this.error = "Login failed. Server error.";
+    }
     }
   }
 };
