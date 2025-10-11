@@ -16,6 +16,7 @@ const transporter = nodemailer.createTransport({
 
 // REGISTER route
 router.post('/register', async (req, res) => {
+  console.log("Register route called");
   const { email, username, password } = req.body;
   try {
     // Check if user or email exists
@@ -32,7 +33,7 @@ router.post('/register', async (req, res) => {
     await user.save();
 
     // Send confirmation email
-    const confirmUrl = `http://localhost:9000/api/confirm/${confirmationToken}`;
+    const confirmUrl = `http://localhost:3001/api/confirm/${confirmationToken}`;
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
       to: email,
@@ -42,6 +43,9 @@ router.post('/register', async (req, res) => {
 
     res.json({ success: true, message: "Registration successful! Please check your email to confirm your account." });
   } catch (err) {
+    console.log("penis");
+    console.error(err.message);
+    if (err.stack) console.error('Stack trace:', err.stack);
     res.status(500).json({ success: false, message: "Server error" });
   }
 });
