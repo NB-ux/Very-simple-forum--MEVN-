@@ -4,9 +4,8 @@
   "description": "Express.js template",
   "main": "server.js",
   "scripts": {
-    "serve": "set NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "dev": "nodemon server.js",
+    "start": "node server.js"
   },
   "license": "ISC",
   "dependencies": {
@@ -20,8 +19,6 @@
     "nodemailer": "^7.0.6"
   },
   "devDependencies": {
-    "@vue/cli-plugin-eslint": "^5.0.8",
-    "@vue/test-utils": "^2.0.0",
     "eslint": "^8.0.0",
     "nodemon": "^1.18.3",
     "prettier": "^2.0.5"
