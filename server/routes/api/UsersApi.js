@@ -5,6 +5,23 @@ const nodemailer = require('nodemailer');
 const User = require('../../models/User');
 const router = express.Router();
 
+// Middleware to verify token
+const verifyToken = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+  const token = authHeader?.split(' ')[1]; // "Bearer <token>"
+  
+  if (!token) {
+    return res.status(401).json({ success: false, message: 'No token provided' });
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'secretkey');
+    req.user = decoded;
+    next();
+  } catch (err) {
+    return res.status(401).json({ success: false, message: 'Invalid or expired token' });
+  }
+};
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -80,6 +97,20 @@ router.post('/login', async (req, res) => {
     res.json({ success: true, token });
   } catch (err) {
     console.error('Login error:', err);
+    res.status(500).json({ success: false, message: 'Server error' });
+  }
+});
+
+// PROFILE route (protected)
+router.get('/profile', verifyToken, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select('-password');
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+    res.json({ success: true, user });
+  } catch (err) {
+    console.error('Profile fetch error:', err);
     res.status(500).json({ success: false, message: 'Server error' });
   }
 });

@@ -18,6 +18,8 @@ Users wont be able to edit their posts.
 
 Ability to edit your profile (Profile picture will be added during signup)
 
+Profileview.
+
 # Commands
 
 Backend:
