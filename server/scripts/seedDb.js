@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 const User = require('../models/User');
 const Post = require('../models/Post');
 
@@ -24,7 +25,7 @@ const seedDatabase = async () => {
       {
         email: 'user1@example.com',
         username: 'user1',
-        password: 'hashedpassword1', // In production, hash this
+        password: 'hashedpassword1', 
         confirmed: true,
         confirmationToken: null,
       },
@@ -48,7 +49,24 @@ const seedDatabase = async () => {
       },
     ];
 
-    console.log('Database seeding completed!');
+    // Hash passwords then insert sample data
+    console.log('Hashing and inserting sample users...');
+    const usersToInsert = await Promise.all(sampleUsers.map(async (u) => ({
+      email: u.email,
+      username: u.username,
+      password: await bcrypt.hash(u.password, 10),
+      confirmed: u.confirmed || false,
+      confirmationToken: null
+    })));
+    const createdUsers = await User.insertMany(usersToInsert);
+    console.log(`Inserted ${createdUsers.length} users`);
+
+    console.log('Inserting sample posts...');
+    const createdPosts = await Post.insertMany(samplePosts);
+    console.log(`Inserted ${createdPosts.length} posts`);
+
+    console.log('Database seeding completed! Disconnecting...');
+    await mongoose.disconnect();
     process.exit(0);
   } catch (error) {
     console.error('Error seeding database:', error);
