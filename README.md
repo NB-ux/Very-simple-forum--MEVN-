@@ -17,3 +17,14 @@ Posts will be signed with your username.
 Users wont be able to edit their posts.
 
 Ability to edit your profile (Profile picture will be added during signup)
+
+# Commands
+
+Backend:
+- npm run dev (Backend dev mode)
+- npm start (Backend production)
+- npm run rebuild-db (Database seeding)
+
+Frontend:
+-npm run serve (Frontend dev)
+npm run build (Frontend production)
