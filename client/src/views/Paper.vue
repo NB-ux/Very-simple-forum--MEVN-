@@ -8,7 +8,7 @@
         <!-- Post Actions -->
       <div class="post-actions">
         <button class="create-post-btn" @click="togglePopup">Create new post</button>
-        <Popup :visible="isPopupVisible" @close="closePopup" />
+        <Popup :visible="isPopupVisible" @close="closePopup" @postCreated="onPostCreated" />
       </div>
     </div>
 </template>
@@ -49,6 +49,10 @@
     },
     deletePost(postId) {
       this.posts = this.posts.filter((post) => post._id !== postId);
+    },
+    onPostCreated(newPost) {
+      this.posts.unshift(newPost);  // Add new post to the beginning of the list
+      this.closePopup();
     },
   },
   mounted() {

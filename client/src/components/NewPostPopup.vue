@@ -50,7 +50,11 @@ export default {
             try {
                 const res = await axios.post("http://localhost:3001/api/", postData);
                 if (res.status===200){
-                    alert("Post created successfully!");
+                    //alert("Post created successfully!");
+                    this.$emit('postCreated', res.data);
+                    this.title = "";
+                    this.content = "";
+                    this.closePopup();
                 }
                 this.title = "";
                 this.content = "";
