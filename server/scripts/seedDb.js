@@ -20,7 +20,7 @@ const seedDatabase = async () => {
     await Post.deleteMany({});
     console.log('Existing data cleared');
 
-    // Optional: Add sample data
+    // Add sample data
     const sampleUsers = [
       {
         email: 'user1@example.com',
@@ -38,16 +38,7 @@ const seedDatabase = async () => {
       },
     ];
 
-    const samplePosts = [
-      {
-        title: 'Welcome to the forum',
-        content: 'This is the first post on our forum. Feel free to share your thoughts!',
-      },
-      {
-        title: 'Getting started',
-        content: 'Here are some tips to get started with this forum platform.',
-      },
-    ];
+
 
     // Hash passwords then insert sample data
     console.log('Hashing and inserting sample users...');
@@ -60,6 +51,21 @@ const seedDatabase = async () => {
     })));
     const createdUsers = await User.insertMany(usersToInsert);
     console.log(`Inserted ${createdUsers.length} users`);
+
+    const samplePosts = [
+        {
+          title: 'Welcome to the forum',
+          content: 'This is the first post on our forum. Feel free to share your thoughts!',
+          userId: createdUsers[1]._id,
+          createdAt: new Date(),
+        },
+        {
+          title: 'Getting started',
+          content: 'Here are some tips to get started with this forum platform.',
+          userId: createdUsers[0]._id,
+          createdAt: new Date(),
+        },
+    ];
 
     console.log('Inserting sample posts...');
     const createdPosts = await Post.insertMany(samplePosts);

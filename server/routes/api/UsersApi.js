@@ -116,3 +116,4 @@ router.get('/profile', verifyToken, async (req, res) => {
 });
 
 module.exports = router;
+module.exports.verifyToken = verifyToken;

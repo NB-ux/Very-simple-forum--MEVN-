@@ -14,6 +14,20 @@
       <button @click="logout" class="logout-btn">Log Out</button>
     </div>
 
+     <div v-if="user" class="my-posts-section">
+      <h3>My Posts</h3>
+      <div v-if="userPosts.length > 0" class="posts-list">
+        <div v-for="post in userPosts" :key="post._id" class="post-item">
+          <h4>{{ post.title }}</h4>
+          <p>{{ post.content }}</p>
+          <small>{{ new Date(post.createdAt).toLocaleDateString() }}</small>
+        </div>
+      </div>
+      <div v-else class="no-posts">
+        <p>You haven't created any posts yet.</p>
+      </div>
+    </div>
+    
     <div v-else-if="loading" class="loading">
       Loading profile...
     </div>
@@ -32,7 +46,8 @@ export default {
     return {
       user: null,
       loading: true,
-      error: null
+      error: null,
+      userPosts: []
     };
   },
   mounted() {
@@ -64,6 +79,7 @@ export default {
         }
 
         this.user = data.user;
+        await this.fetchUserPosts();
       } catch (err) {
         console.error('Profile fetch error:', err.message);
         this.error = err.message;
@@ -71,6 +87,27 @@ export default {
         this.loading = false;
       }
     },
+
+    async fetchUserPosts() {
+      const token = localStorage.getItem('token');
+      try {
+        const res = await fetch('http://localhost:3001/api/myPosts', {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        });
+
+        const data = await res.json();
+        if (res.ok) {
+          this.userPosts = data;
+        }
+      } catch (err) {
+        console.error('Error fetching user posts:', err.message);
+      }
+    },
+
     logout() {
       localStorage.removeItem('token');
       this.$router.push('/login');

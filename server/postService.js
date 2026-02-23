@@ -8,6 +8,8 @@ module.exports.createPostDBService = (postData) => {
 
         modeldata.title = postData.title;
         modeldata.content = postData.content;
+        modeldata.userId = postData.userId;
+        modeldata.createdAt = new Date();
 
         modeldata.save(function resultHandle(error, result) {
  

@@ -1,6 +1,7 @@
 const {Router} = require ('express')
 const Post = require('../../models/Post')
-
+//const { authenticateToken } = require('../../middleware/authMiddleware')
+const { verifyToken } = require('./UsersApi')
 const router = Router()
 
 router.get('/', async (req, res) => {
@@ -12,9 +13,14 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.post('/', async (req, res) => {
+router.post('/', verifyToken, async (req, res) => {
 
-    const newPost = new Post(req.body)
+    const newPost = new Post({
+        title: req.body.title,
+        content: req.body.content,
+        userId: req.user.id
+    })
+
     try {
       const post = await newPost.save()
       if (!post) throw new Error('Something went wrong saving the post')
@@ -24,7 +30,7 @@ router.post('/', async (req, res) => {
     }
 })
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', verifyToken, async (req, res) => {
     const {id} = req.params
     try {
         const removed = await Post.findByIdAndDelete(id)
@@ -34,5 +40,15 @@ router.delete('/:id', async (req, res) => {
         res.status(500).json({ message: error.message })
     }
 })
+
+router.get('/myPosts', verifyToken, async (req, res) => {
+  try {
+    const posts = await Post.find({ userId: req.user.id }); // Fetch posts created by the authenticated user
+    res.status(200).json(posts);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 module.exports = router;
 

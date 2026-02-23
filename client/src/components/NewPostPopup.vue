@@ -48,7 +48,13 @@ export default {
             };
 
             try {
-                const res = await axios.post("http://localhost:3001/api/", postData);
+                const res = await axios.post("http://localhost:3001/api/", postData, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+                
                 if (res.status===200){
                     //alert("Post created successfully!");
                     this.$emit('postCreated', res.data);
