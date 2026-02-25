@@ -1,6 +1,6 @@
 <template>
   <div class="profile-container">
-    <h2>Profile</h2>
+    <h2>User Info</h2>
     
     <div v-if="user" class="profile-info">
       <div class="info-block">
@@ -14,14 +14,10 @@
       <button @click="logout" class="logout-btn">Log Out</button>
     </div>
 
-     <div v-if="user" class="my-posts-section">
-      <h3>My Posts</h3>
+    <div v-if="user" class="my-posts-section">
+      <h3>User Roll of paper</h3>
       <div v-if="userPosts.length > 0" class="posts-list">
-        <div v-for="post in userPosts" :key="post._id" class="post-item">
-          <h4>{{ post.title }}</h4>
-          <p>{{ post.content }}</p>
-          <small>{{ new Date(post.createdAt).toLocaleDateString() }}</small>
-        </div>
+        <Piece v-for="post in userPosts" :key="post._id" :post="post" @delete="deletePost" />
       </div>
       <div v-else class="no-posts">
         <p>You haven't created any posts yet.</p>
@@ -37,11 +33,18 @@
       <button @click="$router.push('/login')">Go to Login</button>
     </div>
   </div>
+  
 </template>
 
 <script>
+
+import Piece from "@/components/Piece.vue";
+
 export default {
   name: "Profile",
+  components: {
+    Piece
+  },
   data() {
     return {
       user: null,
@@ -112,7 +115,11 @@ export default {
       localStorage.removeItem('token');
       this.$router.push('/login');
     }
-  }
+  },
+
+   deletePost(postId) {
+      this.posts = this.posts.filter((post) => post._id !== postId);
+    },
 };
 </script>
 
@@ -195,4 +202,9 @@ h2 {
 .error button:hover {
   background: #f0f0f0;
 }
+
+.my-posts-section {
+  margin-top: 80px;
+}
+
 </style>
